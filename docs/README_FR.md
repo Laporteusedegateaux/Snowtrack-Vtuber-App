@@ -1,5 +1,5 @@
 # SnowTrack - Une application Open source pour vtuber, faite sous Godot
-###[English version of this Readme here!](README.md)
+[English version of this Readme here!](README.md)
 ## Quel est ce projet ?
 Ceci est un projet d'application open-source faite par des vtubers, pour les vtubers.
 C'est pour le moment une base qui sera utile à un niveau intermédiaire voire avancé, et sera agrandie pour être rendue plus intuitive au fil du temps.
