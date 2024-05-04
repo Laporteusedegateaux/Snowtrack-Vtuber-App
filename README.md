@@ -22,9 +22,9 @@ I want to add a lot more features over time. For now, here's what I have in mind
 - Live2D support
 - PNGtuber support
 
-And probably a lot more. Want a feature? Let me know, or even fork this project and code it yourself!
+And probably a lot more. Want a feature? We can add it to the list!
 
-## Known issues
+## Known issues and limitations
 At the moment, this is what I know is broken. This is very early in the projects - bugs and unpolished features are to be expected.
 Here goes:
 - The only tracking supported as of now is ARKit. IfacialMocap (Iphone) and Meowface (Android) both work and are supported.
