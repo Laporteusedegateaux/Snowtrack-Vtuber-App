@@ -8,9 +8,11 @@ You can freely modify what's provided here!
 Think a feature should be made? Get to coding, or let me know!
 
 ## What's working?
+Not a lot! This is a base for now, so you'll have to do some work to get things working.
+Out of the box, it is NOT functionnal. Available are:
 - Arkit (IFacialMocap or Meowface) tracking
 - Twitch integration for redeems, chat, bits, subs, hype trains, follows, etc.
-- Hand tracking (WIP)
+- Hand tracking (broken at the moment, but it does technically track the hands... Just not very well)
 - Different cameras and easy swapping between them
 
 ## What's planned?
@@ -18,6 +20,8 @@ I want to add a lot more features over time. For now, here's what I have in mind
 - load avatars straight from blender with an integrated setup
 - load decor and props straight from file, and edit them directly without conversion to another format
 - more tracking options like webcam, kinect and mediapipe
+- support for moving around your environment
+- have settings that pop up in another window
 - the possibility to run the app on another computer to avoid slurping graphical power from your streaming pc
 - Live2D support
 - PNGtuber support

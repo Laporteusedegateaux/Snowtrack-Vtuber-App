@@ -1,0 +1,117 @@
+[gd_scene load_steps=2 format=3 uid="uid://ugsdwe0frxpi"]
+
+[ext_resource type="Script" path="res://Common/Scripts/Manager_Options.gd" id="1_8btc1"]
+
+[node name="OptionsContainer" type="GridContainer"]
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 250
+theme_override_constants/v_separation = 20
+columns = 2
+script = ExtResource("1_8btc1")
+
+[node name="LabelResolution" type="Label" parent="."]
+layout_mode = 2
+text = "Résolution"
+
+[node name="OptionResolution" type="OptionButton" parent="."]
+layout_mode = 2
+item_count = 6
+selected = 4
+popup/item_0/text = "3440x1440 (21:9)"
+popup/item_0/id = 0
+popup/item_1/text = "2160x1080 (21:9)"
+popup/item_1/id = 1
+popup/item_2/text = "2160x1440 (16:9)"
+popup/item_2/id = 2
+popup/item_3/text = "1920x1080 (16:9)"
+popup/item_3/id = 3
+popup/item_4/text = "1600x900 (16:9)"
+popup/item_4/id = 4
+popup/item_5/text = "1280x720"
+popup/item_5/id = 5
+
+[node name="LabelWindowMode" type="Label" parent="."]
+visible = false
+layout_mode = 2
+text = "Résolution"
+
+[node name="OptionWindowed" type="OptionButton" parent="."]
+visible = false
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "Fenêtré"
+popup/item_0/id = 0
+popup/item_1/text = "Fenêtré sans bordures"
+popup/item_1/id = 1
+popup/item_2/text = "Plein écran"
+popup/item_2/id = 2
+
+[node name="LabelVsync" type="Label" parent="."]
+visible = false
+layout_mode = 2
+text = "Vsync"
+
+[node name="CheckBoxVsync" type="CheckBox" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="LabelVolAll" type="Label" parent="."]
+visible = false
+layout_mode = 2
+text = "Volume principal"
+
+[node name="HSliderVolAll" type="HSlider" parent="."]
+visible = false
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+value = 75.0
+rounded = true
+tick_count = 10
+
+[node name="LabelVolEffects" type="Label" parent="."]
+layout_mode = 2
+text = "Effets
+"
+
+[node name="HSliderVolEffects" type="HSlider" parent="."]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+value = 75.0
+rounded = true
+tick_count = 10
+
+[node name="LabelVolMusic" type="Label" parent="."]
+visible = false
+layout_mode = 2
+text = "Musique"
+
+[node name="HSliderVolMusic" type="HSlider" parent="."]
+visible = false
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+value = 75.0
+rounded = true
+tick_count = 10
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+title = "Confirmer..."
+initial_position = 2
+size = Vector2i(415, 147)
+always_on_top = true
+popup_window = true
+ok_button_text = "Confirmer"
+dialog_text = "Confirmer le changement ?
+
+Les changements seront annulés dans 15 secondes."
+cancel_button_text = "Annuler"
+
+[node name="ConfirmationTimer" type="Timer" parent="ConfirmationDialog"]
+wait_time = 15.0
+one_shot = true
+
+[connection signal="item_selected" from="OptionResolution" to="." method="_on_option_resolution_selected"]
+[connection signal="item_selected" from="OptionWindowed" to="." method="_on_option_windowed_selected"]
+[connection signal="canceled" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
+[connection signal="timeout" from="ConfirmationDialog/ConfirmationTimer" to="." method="_on_confirmation_timer_timeout"]

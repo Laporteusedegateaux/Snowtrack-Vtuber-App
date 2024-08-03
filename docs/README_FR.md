@@ -8,9 +8,11 @@ Vous pouvez modifier tout ce qui est fourni ici!
 Une fonctionalité vous manque ? Tu peux la coder toi-même, ou en parler !
 
 ## Qu'est-ce qui est actuellement fonctionnel ?
+Pas grand-chose ! Ce logiciel est pour le moment plus une base, donc une certaine quantité de travail est nécessaire pour l'utiliser.
+Voici ce qui est disponible :
 - Tracking Arkit (IFacialMocap ou Meowface)
 - Intégration Twitch pour le chat, les récompenses, bits, subs, trains de la hype, follow, etc.
-- Tracking des mains (WIP)
+- Tracking des mains (Cassé actuellement, mais ça track techniquement bien les mains... Mais pas bien)
 - Différents angles de caméra et un changement facile entre eux
 
 ## Qu'est-ce qui est prévu ?
@@ -18,6 +20,8 @@ Je veux ajouter une pléthore de fonctionnalités au fil du temps. Pour le momen
 - Charger des avatars directement depuis un fichier blender avec un setup intégré
 - Charger des décors et objets directement depuis un fichier, et les placer/modifier sans avoir à les convertir à un autre format
 - Plus d'options de tracking comme les webcam, kinect et mediapipe
+- Pouvoir se déplacer dans vos environnements
+- Avoir des paramètres et options dans une fenêtre séparée
 - La possibilité d'utiliser l'application depuis un autre PC pour éviter une charge graphique de plus sur un pc de stream
 - Support des avatars Live2D
 - Support des avatars PNG

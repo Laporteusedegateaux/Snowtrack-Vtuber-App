@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://cmfr6463oc3to"]
+
+[ext_resource type="Script" path="res://addons/tmi/tmi.gd" id="1_3yu75"]
+[ext_resource type="Script" path="res://addons/tmi/models/credentials.gd" id="2_k0tai"]
+[ext_resource type="Script" path="res://addons/tmi/services/twitch.gd" id="3_4fr7a"]
+[ext_resource type="Script" path="res://addons/tmi/services/7tv.gd" id="4_y7ei2"]
+[ext_resource type="Script" path="res://addons/tmi/services/pronouns.gd" id="5_20yfe"]
+[ext_resource type="Script" path="res://addons/tmi/services/bttv.gd" id="6_fk00d"]
+[ext_resource type="Script" path="res://addons/tmi/services/oauth.gd" id="8_rfcan"]
+
+[sub_resource type="Resource" id="Resource_3kfrh"]
+script = ExtResource("2_k0tai")
+user_login = "laporteusedegateaux"
+user_id = "86740884"
+channel = "laporteusedegateaux"
+broadcaster_user_id = ""
+client_id = "dxy6jjtrgik9q75doertq51z78x"
+client_secret = ""
+token = ""
+refresh_token = ""
+profile = {}
+listen_to = 255
+
+[node name="Tmi" type="Node"]
+script = ExtResource("1_3yu75")
+credentials = SubResource("Resource_3kfrh")
+
+[node name="TwitchAPI" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_4fr7a")
+
+[node name="7tvAPI" type="Node" parent="."]
+script = ExtResource("4_y7ei2")
+
+[node name="BttvAPI" type="Node" parent="."]
+script = ExtResource("6_fk00d")
+
+[node name="PronounsAPI" type="Node" parent="."]
+script = ExtResource("5_20yfe")
+
+[node name="OAuth" type="Node" parent="."]
+script = ExtResource("8_rfcan")
+
+[connection signal="command" from="." to="7tvAPI" method="_on_twitch_command"]
+[connection signal="command" from="." to="BttvAPI" method="_on_twitch_command"]
+[connection signal="credentials_updated" from="." to="TwitchAPI" method="set_credentials"]

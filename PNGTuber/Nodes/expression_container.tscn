@@ -1,0 +1,233 @@
+[gd_scene load_steps=9 format=3 uid="uid://c57yeydtokhu"]
+
+[ext_resource type="Script" path="res://PNGTuber/Scripts/ExpressionContainer.gd" id="1_xywqg"]
+[ext_resource type="Texture2D" uid="uid://csdx3c24okcgr" path="res://PNGTuber/SavedImages/Default-Default.png" id="2_fujdg"]
+[ext_resource type="Texture2D" uid="uid://bg05xcfq5gebx" path="res://Common/Images/Folder_Open-1.png" id="3_pxpk6"]
+[ext_resource type="Texture2D" uid="uid://cgl2wtrwnxf7f" path="res://Common/Images/Folder_Open-2.png" id="4_0quel"]
+[ext_resource type="Texture2D" uid="uid://clk2lae1l76h" path="res://Common/Images/Folder_Open-3.png" id="5_o5bdr"]
+[ext_resource type="Texture2D" uid="uid://dlfxylx2g8sgm" path="res://PNGTuber/SavedImages/Default-Blink.png" id="6_kcybo"]
+[ext_resource type="Texture2D" uid="uid://btqxp0kfpa706" path="res://PNGTuber/SavedImages/Default-MouthOpen.png" id="7_ns7uj"]
+[ext_resource type="Texture2D" uid="uid://dqm4no7vln20i" path="res://PNGTuber/SavedImages/Default-BlinkMouthOpen.png" id="8_appek"]
+
+[node name="ExpressionContainer" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 186.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
+script = ExtResource("1_xywqg")
+
+[node name="VSeparator4" type="VSeparator" parent="."]
+layout_mode = 2
+
+[node name="DefaultContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="DefaultContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Expression_Name" type="LineEdit" parent="DefaultContainer/Header"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+text = "Expression name"
+
+[node name="Images" type="HBoxContainer" parent="DefaultContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="DefaultContainer/Images"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture = ExtResource("2_fujdg")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Button" type="TextureButton" parent="DefaultContainer/Images/TextureRect"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("3_pxpk6")
+texture_pressed = ExtResource("4_0quel")
+texture_hover = ExtResource("5_o5bdr")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="VSeparator" type="VSeparator" parent="."]
+layout_mode = 2
+
+[node name="BlinkContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="BlinkContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="BLINK" type="Label" parent="BlinkContainer/Header"]
+layout_mode = 2
+text = "Blink"
+
+[node name="BlinkCheck" type="CheckBox" parent="BlinkContainer/Header"]
+layout_mode = 2
+button_pressed = true
+
+[node name="Images" type="HBoxContainer" parent="BlinkContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="BlinkContainer/Images"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture = ExtResource("6_kcybo")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Button" type="TextureButton" parent="BlinkContainer/Images/TextureRect"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("3_pxpk6")
+texture_pressed = ExtResource("4_0quel")
+texture_hover = ExtResource("5_o5bdr")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="VSeparator2" type="VSeparator" parent="."]
+layout_mode = 2
+
+[node name="MouthOpenContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="MouthOpenContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="MOUTHOPEN" type="Label" parent="MouthOpenContainer/Header"]
+layout_mode = 2
+text = "Mouth open"
+
+[node name="MouthOpenCheck" type="CheckBox" parent="MouthOpenContainer/Header"]
+layout_mode = 2
+button_pressed = true
+
+[node name="Images" type="HBoxContainer" parent="MouthOpenContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MouthOpenContainer/Images"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture = ExtResource("7_ns7uj")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Button" type="TextureButton" parent="MouthOpenContainer/Images/TextureRect"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("3_pxpk6")
+texture_pressed = ExtResource("4_0quel")
+texture_hover = ExtResource("5_o5bdr")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="VSeparator3" type="VSeparator" parent="."]
+layout_mode = 2
+
+[node name="BlinkMouthOpenContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="BlinkMouthOpenContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="BLINKMOUTHOPEN" type="Label" parent="BlinkMouthOpenContainer/Header"]
+layout_mode = 2
+text = "Blink + Mouth open"
+
+[node name="BlinkMouthOpenCheck" type="CheckBox" parent="BlinkMouthOpenContainer/Header"]
+layout_mode = 2
+button_pressed = true
+
+[node name="Images" type="HBoxContainer" parent="BlinkMouthOpenContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="BlinkMouthOpenContainer/Images"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture = ExtResource("8_appek")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Button" type="TextureButton" parent="BlinkMouthOpenContainer/Images/TextureRect"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("3_pxpk6")
+texture_pressed = ExtResource("4_0quel")
+texture_hover = ExtResource("5_o5bdr")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="VSeparator5" type="VSeparator" parent="."]
+layout_mode = 2
+
+[node name="DeleteButton" type="Button" parent="."]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Delete"
+
+[node name="FileGetDialog" type="FileDialog" parent="."]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(700, 500)
+ok_button_text = "Open"
+dialog_hide_on_ok = true
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.png")
+
+[connection signal="text_changed" from="DefaultContainer/Header/Expression_Name" to="." method="_on_expression_name_text_changed"]
+[connection signal="pressed" from="DefaultContainer/Images/TextureRect/Button" to="." method="_on_button_pressed" binds= ["Default"]]
+[connection signal="pressed" from="BlinkContainer/Images/TextureRect/Button" to="." method="_on_button_pressed" binds= ["Blink"]]
+[connection signal="toggled" from="MouthOpenContainer/Header/MouthOpenCheck" to="." method="_on_check_toggled" binds= ["MouthOpen"]]
+[connection signal="pressed" from="MouthOpenContainer/Images/TextureRect/Button" to="." method="_on_button_pressed" binds= ["MouthOpen"]]
+[connection signal="toggled" from="BlinkMouthOpenContainer/Header/BlinkMouthOpenCheck" to="." method="_on_check_toggled" binds= ["BlinkMouthOpen"]]
+[connection signal="pressed" from="BlinkMouthOpenContainer/Images/TextureRect/Button" to="." method="_on_button_pressed" binds= ["BlinkMouthOpen"]]
+[connection signal="pressed" from="DeleteButton" to="." method="_on_signal"]
+[connection signal="file_selected" from="FileGetDialog" to="." method="_on_file_get_dialog_file_selected"]

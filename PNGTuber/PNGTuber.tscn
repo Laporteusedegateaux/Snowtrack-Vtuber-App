@@ -1,0 +1,706 @@
+[gd_scene load_steps=38 format=3 uid="uid://bsrd4j45hw404"]
+
+[ext_resource type="Script" path="res://PNGTuber/Scripts/PNGTuberHandler.gd" id="1_t227f"]
+[ext_resource type="Script" path="res://Common/Scripts/FileHandler.gd" id="2_8lpk4"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_d30de"]
+[ext_resource type="Script" path="res://PNGTuber/Scripts/UI_PNG.gd" id="3_bjrfv"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="3_un4jf"]
+[ext_resource type="PackedScene" uid="uid://c57yeydtokhu" path="res://PNGTuber/Nodes/expression_container.tscn" id="4_pvxr6"]
+[ext_resource type="Script" path="res://PNGTuber/Scripts/ExpressionContainer.gd" id="5_1038r"]
+[ext_resource type="PackedScene" uid="uid://ugsdwe0frxpi" path="res://Common/Nodes/options.tscn" id="5_ulxtc"]
+[ext_resource type="Texture2D" uid="uid://cgl2wtrwnxf7f" path="res://Common/Images/Folder_Open-2.png" id="7_h451q"]
+[ext_resource type="Texture2D" uid="uid://bg05xcfq5gebx" path="res://Common/Images/Folder_Open-1.png" id="7_lkp2p"]
+[ext_resource type="Texture2D" uid="uid://clk2lae1l76h" path="res://Common/Images/Folder_Open-3.png" id="8_wljkp"]
+[ext_resource type="AudioStream" uid="uid://cfvwhhgbffjx1" path="res://Common/Settings/microphone.tres" id="9_iokfp"]
+[ext_resource type="Texture2D" uid="uid://csdx3c24okcgr" path="res://PNGTuber/SavedImages/Default-Default.png" id="9_otcrw"]
+[ext_resource type="Texture2D" uid="uid://xeu75mqm4lov" path="res://Common/Images/warning_exclamation_point.png" id="10_g7yfg"]
+[ext_resource type="Texture2D" uid="uid://dlfxylx2g8sgm" path="res://PNGTuber/SavedImages/Default-Blink.png" id="13_qm8eh"]
+[ext_resource type="Texture2D" uid="uid://btqxp0kfpa706" path="res://PNGTuber/SavedImages/Default-MouthOpen.png" id="14_8e0xp"]
+[ext_resource type="PackedScene" uid="uid://cmfr6463oc3to" path="res://addons/tmi/tmi.tscn" id="14_mxgcc"]
+[ext_resource type="Texture2D" uid="uid://dqm4no7vln20i" path="res://PNGTuber/SavedImages/Default-BlinkMouthOpen.png" id="15_n3u11"]
+[ext_resource type="PackedScene" uid="uid://2hx3mbwdlv1w" path="res://Common/tmi/control_panel/control_panel.tscn" id="15_s58hh"]
+[ext_resource type="PackedScene" uid="uid://ry571ddp7oys" path="res://Common/tmi/chat/chat.tscn" id="16_s4dsa"]
+
+[sub_resource type="Gradient" id="Gradient_enhu7"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pwvxo"]
+gradient = SubResource("Gradient_enhu7")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bdo4i"]
+
+[sub_resource type="Gradient" id="Gradient_w4ay0"]
+offsets = PackedFloat32Array(0.250667, 0.293333)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lhq84"]
+noise_type = 2
+frequency = 0.0513
+fractal_type = 0
+cellular_distance_function = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_eg51t"]
+width = 325
+height = 30
+color_ramp = SubResource("Gradient_w4ay0")
+noise = SubResource("FastNoiseLite_lhq84")
+
+[sub_resource type="Gradient" id="Gradient_pyy5w"]
+offsets = PackedFloat32Array(0.250667, 0.293333)
+colors = PackedColorArray(1, 0.741176, 1, 1, 1, 0.370673, 0.704109, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_78m23"]
+noise_type = 2
+frequency = 0.0513
+fractal_type = 0
+cellular_distance_function = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bbash"]
+width = 325
+height = 30
+color_ramp = SubResource("Gradient_pyy5w")
+noise = SubResource("FastNoiseLite_78m23")
+
+[sub_resource type="Animation" id="Animation_ofdg1"]
+resource_name = "Bounce"
+
+[sub_resource type="Animation" id="Animation_3gv0a"]
+resource_name = "DefaultGrey"
+
+[sub_resource type="Animation" id="Animation_diq22"]
+resource_name = "DefaultShow"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qd0xo"]
+_data = {
+"Bounce": SubResource("Animation_ofdg1"),
+"DefaultGrey": SubResource("Animation_3gv0a"),
+"DefaultShow": SubResource("Animation_diq22")
+}
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iy3bl"]
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_37p1r"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xcwq1"]
+states/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_37p1r")
+states/BlendSpace1D/position = Vector2(567, 44)
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_lmgxx"]
+states/Bounce/node = SubResource("AnimationNodeStateMachine_iy3bl")
+states/Bounce/position = Vector2(532, 123.242)
+states/Default/node = SubResource("AnimationNodeStateMachine_xcwq1")
+states/Default/position = Vector2(532, 38)
+graph_offset = Vector2(0, -49.7582)
+
+[node name="PNGTuber" type="Node2D"]
+script = ExtResource("1_t227f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(962, 543)
+scale = Vector2(9.19531, 1249.5)
+texture = SubResource("GradientTexture1D_pwvxo")
+
+[node name="PositionReference" type="Node2D" parent="."]
+position = Vector2(1647, 893)
+
+[node name="RigidBody2D" type="CharacterBody2D" parent="PositionReference"]
+motion_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PositionReference/RigidBody2D"]
+shape = SubResource("RectangleShape2D_bdo4i")
+
+[node name="PNGVtuber" type="Sprite2D" parent="PositionReference/RigidBody2D"]
+unique_name_in_owner = true
+position = Vector2(-719, -99)
+texture = ExtResource("9_otcrw")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 540)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+script = ExtResource("2_d30de")
+
+[node name="DefaultCam" type="Node2D" parent="."]
+position = Vector2(960, 540)
+script = ExtResource("3_un4jf")
+priority_override = false
+priority = 0
+zoom = Vector2(1, 1)
+follow_mode = 0
+frame_preview = true
+pixel_perfect = false
+limit/draw_limits = false
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+limit/limit_node_target = NodePath("")
+limit/smoothed = false
+tween_parameters = null
+tween_on_load = true
+inactive_update_mode = 0
+
+[node name="FileHandler" type="Node" parent="."]
+script = ExtResource("2_8lpk4")
+
+[node name="SaveTimer" type="Timer" parent="FileHandler"]
+wait_time = 600.0
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 124.0
+offset_bottom = 52.0
+script = ExtResource("3_bjrfv")
+Expression_Container = ExtResource("4_pvxr6")
+
+[node name="MenuButton" type="Button" parent="UI"]
+layout_mode = 1
+offset_right = 95.0
+offset_bottom = 31.0
+text = "Menu"
+
+[node name="SettingsWindow" type="Window" parent="UI"]
+gui_embed_subwindows = true
+title = "Snowtrack v0.1 - PNG mode"
+initial_position = 2
+size = Vector2i(1230, 800)
+visible = false
+transient = true
+always_on_top = true
+
+[node name="Menus" type="VBoxContainer" parent="UI/SettingsWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Buttons" type="HBoxContainer" parent="UI/SettingsWindow/Menus"]
+layout_mode = 2
+
+[node name="Button_Generic" type="Button" parent="UI/SettingsWindow/Menus/Buttons"]
+layout_mode = 2
+text = "General"
+
+[node name="Button_Images" type="Button" parent="UI/SettingsWindow/Menus/Buttons"]
+layout_mode = 2
+text = "Images"
+
+[node name="Button_PNGtuber" type="Button" parent="UI/SettingsWindow/Menus/Buttons"]
+layout_mode = 2
+text = "Microphone"
+
+[node name="Button_Twitch" type="Button" parent="UI/SettingsWindow/Menus/Buttons"]
+layout_mode = 2
+text = "Twitch"
+
+[node name="HSeparator" type="HSeparator" parent="UI/SettingsWindow/Menus"]
+layout_mode = 2
+
+[node name="Generic" type="HBoxContainer" parent="UI/SettingsWindow/Menus"]
+visible = false
+layout_mode = 2
+
+[node name="OptionsContainer" parent="UI/SettingsWindow/Menus/Generic" instance=ExtResource("5_ulxtc")]
+layout_mode = 2
+
+[node name="Images" type="HBoxContainer" parent="UI/SettingsWindow/Menus"]
+custom_minimum_size = Vector2(1200, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/SettingsWindow/Menus/Images"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer"]
+custom_minimum_size = Vector2(1100, 700)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ImageFullContainer" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="ImageContainers" type="VBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer"]
+layout_mode = 2
+
+[node name="ExpressionDefaultContainer" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers"]
+layout_mode = 2
+theme_override_constants/separation = 10
+script = ExtResource("5_1038r")
+
+[node name="VSeparator4" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer"]
+layout_mode = 2
+
+[node name="DefaultContainer" type="VBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer"]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/DefaultContainer"]
+layout_mode = 2
+
+[node name="DEFAULT" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/DefaultContainer/Header"]
+layout_mode = 2
+text = "Default
+"
+
+[node name="Images" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/DefaultContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/DefaultContainer/Images"]
+layout_mode = 2
+texture = ExtResource("9_otcrw")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Button" type="TextureButton" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/DefaultContainer/Images/TextureRect"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("7_lkp2p")
+texture_pressed = ExtResource("7_h451q")
+texture_hover = ExtResource("8_wljkp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="VSeparator" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer"]
+layout_mode = 2
+
+[node name="BlinkContainer" type="VBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer"]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkContainer"]
+layout_mode = 2
+
+[node name="BLINK" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkContainer/Header"]
+layout_mode = 2
+text = "Blink
+"
+
+[node name="BlinkCheck" type="CheckBox" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkContainer/Header"]
+layout_mode = 2
+button_pressed = true
+
+[node name="Images" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkContainer/Images"]
+layout_mode = 2
+texture = ExtResource("13_qm8eh")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Button" type="TextureButton" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkContainer/Images/TextureRect"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("7_lkp2p")
+texture_pressed = ExtResource("7_h451q")
+texture_hover = ExtResource("8_wljkp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="VSeparator2" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer"]
+layout_mode = 2
+
+[node name="MouthOpenContainer" type="VBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer"]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/MouthOpenContainer"]
+layout_mode = 2
+
+[node name="MOUTHOPEN" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/MouthOpenContainer/Header"]
+layout_mode = 2
+text = "Mouth open"
+
+[node name="MouthOpenCheck" type="CheckBox" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/MouthOpenContainer/Header"]
+layout_mode = 2
+button_pressed = true
+
+[node name="Images" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/MouthOpenContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/MouthOpenContainer/Images"]
+layout_mode = 2
+texture = ExtResource("14_8e0xp")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Button" type="TextureButton" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/MouthOpenContainer/Images/TextureRect"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("7_lkp2p")
+texture_pressed = ExtResource("7_h451q")
+texture_hover = ExtResource("8_wljkp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="VSeparator3" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer"]
+layout_mode = 2
+
+[node name="BlinkMouthOpenContainer" type="VBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer"]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkMouthOpenContainer"]
+layout_mode = 2
+
+[node name="BLINKMOUTHOPEN" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkMouthOpenContainer/Header"]
+layout_mode = 2
+text = "Blink + Mouth open"
+
+[node name="BlinkMouthOpenCheck" type="CheckBox" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkMouthOpenContainer/Header"]
+layout_mode = 2
+button_pressed = true
+
+[node name="Images" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkMouthOpenContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkMouthOpenContainer/Images"]
+layout_mode = 2
+texture = ExtResource("15_n3u11")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Button" type="TextureButton" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkMouthOpenContainer/Images/TextureRect"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("7_lkp2p")
+texture_pressed = ExtResource("7_h451q")
+texture_hover = ExtResource("8_wljkp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="VSeparator5" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer"]
+layout_mode = 2
+
+[node name="Button_Save" type="Button" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer"]
+layout_mode = 2
+text = "Save all images"
+
+[node name="VSeparator" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer"]
+layout_mode = 2
+
+[node name="ImageOptions" type="GridContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="BlinkDelay" type="HSlider" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 20.0
+value = 1.0
+tick_count = 20
+ticks_on_borders = true
+
+[node name="BlinkDelayAmount" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "1
+"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VSeparator5" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+clip_contents = true
+custom_minimum_size = Vector2(10, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="BLINKDELAY" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+layout_mode = 2
+text = "BlinkDelay"
+
+[node name="OptionButton" type="OptionButton" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+layout_mode = 2
+
+[node name="MANUALEXPRESSION" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+layout_mode = 2
+text = "Manual
+expression
+change"
+
+[node name="HSeparator" type="HSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlusButton" type="Button" parent="UI/SettingsWindow/Menus/Images/VBoxContainer"]
+layout_mode = 2
+text = "+"
+
+[node name="PNGtuber" type="HBoxContainer" parent="UI/SettingsWindow/Menus"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="AudioSlider" type="GridContainer" parent="UI/SettingsWindow/Menus/PNGtuber"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 4
+
+[node name="AudioVisualizer" type="TextureProgressBar" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+custom_minimum_size = Vector2(300, 10)
+layout_mode = 2
+min_value = -100.0
+max_value = 0.0
+value = -60.0
+texture_under = SubResource("NoiseTexture2D_eg51t")
+texture_progress = SubResource("NoiseTexture2D_bbash")
+
+[node name="WarningHigh" type="Panel" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider/AudioVisualizer"]
+visible = false
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+offset_left = 295.0
+offset_right = 325.0
+offset_bottom = 30.0
+
+[node name="WarningTexture" type="TextureRect" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider/AudioVisualizer/WarningHigh"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.25, 1.25)
+pivot_offset = Vector2(15, 15)
+texture = ExtResource("10_g7yfg")
+expand_mode = 1
+
+[node name="WarningLow" type="Panel" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider/AudioVisualizer"]
+visible = false
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 30.0
+
+[node name="WarningTexture" type="TextureRect" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider/AudioVisualizer/WarningLow"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.25, 1.25)
+pivot_offset = Vector2(15, 15)
+texture = ExtResource("10_g7yfg")
+expand_mode = 1
+
+[node name="MicNoiseAmount" type="Label" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "0dB"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+clip_contents = true
+custom_minimum_size = Vector2(10, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MICROPHONEINPUT" type="Label" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+layout_mode = 2
+text = "Microphone input"
+
+[node name="GateSlider" type="HSlider" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+clip_contents = true
+custom_minimum_size = Vector2(325, 30)
+layout_mode = 2
+min_value = -100.0
+max_value = 0.0
+value = -50.0
+rounded = true
+tick_count = 3
+
+[node name="GateAmount" type="Label" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "0dB"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VSeparator2" type="VSeparator" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+clip_contents = true
+custom_minimum_size = Vector2(10, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="FLOOR" type="Label" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+layout_mode = 2
+text = "Activation treshold"
+
+[node name="SoundOffset" type="HSlider" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+min_value = -50.0
+max_value = 50.0
+rounded = true
+
+[node name="OffsetAmount" type="Label" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VSeparator3" type="VSeparator" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+clip_contents = true
+custom_minimum_size = Vector2(10, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="OFFSET" type="Label" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+layout_mode = 2
+text = "Sound offset"
+
+[node name="SoundMultiplier" type="HSlider" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+visible = false
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="SoundMultiplierAmount" type="Label" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+visible = false
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VSeparator4" type="VSeparator" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+visible = false
+clip_contents = true
+custom_minimum_size = Vector2(10, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SOUNDMULTIPLIER" type="Label" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+visible = false
+layout_mode = 2
+text = "Loudness multiplier"
+
+[node name="Twitch" type="HBoxContainer" parent="UI/SettingsWindow/Menus"]
+visible = false
+layout_mode = 2
+
+[node name="Tmi" parent="UI/SettingsWindow/Menus/Twitch" instance=ExtResource("14_mxgcc")]
+unique_name_in_owner = true
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/SettingsWindow/Menus/Twitch"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ControlPanel" parent="UI/SettingsWindow/Menus/Twitch/PanelContainer" node_paths=PackedStringArray("tmi") instance=ExtResource("15_s58hh")]
+custom_minimum_size = Vector2(0, 450)
+layout_mode = 2
+tmi = NodePath("../../Tmi")
+
+[node name="PanelContainer2" type="PanelContainer" parent="UI/SettingsWindow/Menus/Twitch"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Chat" parent="UI/SettingsWindow/Menus/Twitch/PanelContainer2" instance=ExtResource("16_s4dsa")]
+layout_mode = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_iokfp")
+autoplay = true
+bus = &"Microphone"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qd0xo")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="AnimationPlayer"]
+root_node = NodePath("../..")
+tree_root = SubResource("AnimationNodeStateMachine_lmgxx")
+anim_player = NodePath("..")
+parameters/Default/BlendSpace1D/blend_position = 0
+
+[node name="BlinkTimer" type="Timer" parent="."]
+
+[connection signal="state_changed" from="." to="." method="_on_state_changed"]
+[connection signal="timeout" from="FileHandler/SaveTimer" to="FileHandler" method="_on_save_timer_timeout"]
+[connection signal="pressed" from="UI/MenuButton" to="UI" method="_on_menu_button_pressed"]
+[connection signal="close_requested" from="UI/SettingsWindow" to="UI" method="_on_settings_window_close_requested"]
+[connection signal="pressed" from="UI/SettingsWindow/Menus/Buttons/Button_Generic" to="UI" method="_on_button_generic_pressed"]
+[connection signal="pressed" from="UI/SettingsWindow/Menus/Buttons/Button_Images" to="UI" method="_on_button_images_pressed"]
+[connection signal="pressed" from="UI/SettingsWindow/Menus/Buttons/Button_PNGtuber" to="UI" method="_on_button_PNGtuber_pressed"]
+[connection signal="pressed" from="UI/SettingsWindow/Menus/Buttons/Button_Twitch" to="UI" method="_on_button_twitch_pressed"]
+[connection signal="pressed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/DefaultContainer/Images/TextureRect/Button" to="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer" method="_on_button_pressed" binds= ["Default"]]
+[connection signal="pressed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkContainer/Images/TextureRect/Button" to="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer" method="_on_button_pressed" binds= ["Blink"]]
+[connection signal="pressed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/MouthOpenContainer/Images/TextureRect/Button" to="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer" method="_on_button_pressed" binds= ["MouthOpen"]]
+[connection signal="pressed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkMouthOpenContainer/Images/TextureRect/Button" to="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer" method="_on_button_pressed" binds= ["BlinkMouthOpen"]]
+[connection signal="pressed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/Button_Save" to="UI" method="_on_button_save_pressed"]
+[connection signal="value_changed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkDelay" to="." method="_on_blink_delay_value_changed"]
+[connection signal="pressed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/PlusButton" to="UI" method="_on_plus_button_pressed"]
+[connection signal="value_changed" from="UI/SettingsWindow/Menus/PNGtuber/AudioSlider/GateSlider" to="." method="_on_gate_slider_value_changed"]
+[connection signal="value_changed" from="UI/SettingsWindow/Menus/PNGtuber/AudioSlider/SoundOffset" to="." method="_on_sound_offset_value_changed"]
+[connection signal="value_changed" from="UI/SettingsWindow/Menus/PNGtuber/AudioSlider/SoundMultiplier" to="." method="_on_sound_multiplier_value_changed"]
+[connection signal="command" from="UI/SettingsWindow/Menus/Twitch/Tmi" to="UI/SettingsWindow/Menus/Twitch/PanelContainer2/Chat" method="_on_twitch_command"]
+[connection signal="connection_status_changed" from="UI/SettingsWindow/Menus/Twitch/Tmi" to="UI/SettingsWindow/Menus/Twitch/PanelContainer/ControlPanel" method="_on_twitch_connection_status_changed"]
+[connection signal="timeout" from="BlinkTimer" to="." method="_on_blink_timer_timeout"]
+
+[editable path="UI/SettingsWindow/Menus/Twitch/Tmi"]
