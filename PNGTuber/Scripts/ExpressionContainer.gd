@@ -13,16 +13,13 @@ var expressions := {}
 # BlinkMouthOpen - Texture
 # BlinkMoutOpenEnabled - bool
 
-func _ready():						
+func _ready():
 	if $DefaultContainer/Images/TextureRect.texture :
 		expressions["Default"] = $DefaultContainer/Images/TextureRect.texture
-		print("Set texture at ready")
 	if $BlinkContainer/Images/TextureRect.texture :
 		expressions["Blink"] = $BlinkContainer/Images/TextureRect.texture
-		print("Set texture at ready")
 	if $MouthOpenContainer/Images/TextureRect.texture :
 		expressions["MouthOpen"] = $MouthOpenContainer/Images/TextureRect.texture
-		print("Set texture at ready")
 	if $BlinkMouthOpenContainer/Images/TextureRect.texture :
 		expressions["BlinkMouthOpen"] = $BlinkMouthOpenContainer/Images/TextureRect.texture
 

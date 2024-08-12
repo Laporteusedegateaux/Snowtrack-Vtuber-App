@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bsrd4j45hw404"]
+[gd_scene load_steps=33 format=3 uid="uid://bsrd4j45hw404"]
 
 [ext_resource type="Script" path="res://PNGTuber/Scripts/PNGTuberHandler.gd" id="1_t227f"]
 [ext_resource type="Script" path="res://Common/Scripts/FileHandler.gd" id="2_8lpk4"]
@@ -20,13 +20,6 @@
 [ext_resource type="Texture2D" uid="uid://dqm4no7vln20i" path="res://PNGTuber/SavedImages/Default-BlinkMouthOpen.png" id="15_n3u11"]
 [ext_resource type="PackedScene" uid="uid://2hx3mbwdlv1w" path="res://Common/tmi/control_panel/control_panel.tscn" id="15_s58hh"]
 [ext_resource type="PackedScene" uid="uid://ry571ddp7oys" path="res://Common/tmi/chat/chat.tscn" id="16_s4dsa"]
-
-[sub_resource type="Gradient" id="Gradient_enhu7"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_pwvxo"]
-gradient = SubResource("Gradient_enhu7")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bdo4i"]
 
@@ -64,55 +57,117 @@ noise = SubResource("FastNoiseLite_78m23")
 
 [sub_resource type="Animation" id="Animation_ofdg1"]
 resource_name = "Bounce"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationReference:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(960, 540), Vector2(960, 500)]
+}
 
-[sub_resource type="Animation" id="Animation_3gv0a"]
-resource_name = "DefaultGrey"
+[sub_resource type="Animation" id="Animation_bk3bd"]
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationReference:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.5, 0.7, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(930, 540), Vector2(930, 540), Vector2(960, 500), Vector2(990, 540), Vector2(960, 500), Vector2(960, 540)]
+}
 
-[sub_resource type="Animation" id="Animation_diq22"]
-resource_name = "DefaultShow"
+[sub_resource type="Animation" id="Animation_xhyue"]
+resource_name = "Default"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationReference:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(960, 500)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationReference:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.1, 1.1)]
+}
+
+[sub_resource type="Animation" id="Animation_ar4x3"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationReference:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(960, 540)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationReference:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.1, 1.1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qd0xo"]
 _data = {
 "Bounce": SubResource("Animation_ofdg1"),
-"DefaultGrey": SubResource("Animation_3gv0a"),
-"DefaultShow": SubResource("Animation_diq22")
+"Default": SubResource("Animation_xhyue"),
+"RESET": SubResource("Animation_ar4x3"),
+"SideToSide": SubResource("Animation_bk3bd")
 }
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iy3bl"]
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_37p1r"]
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xcwq1"]
-states/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_37p1r")
-states/BlendSpace1D/position = Vector2(567, 44)
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_lmgxx"]
-states/Bounce/node = SubResource("AnimationNodeStateMachine_iy3bl")
-states/Bounce/position = Vector2(532, 123.242)
-states/Default/node = SubResource("AnimationNodeStateMachine_xcwq1")
-states/Default/position = Vector2(532, 38)
-graph_offset = Vector2(0, -49.7582)
 
 [node name="PNGTuber" type="Node2D"]
 script = ExtResource("1_t227f")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(962, 543)
-scale = Vector2(9.19531, 1249.5)
-texture = SubResource("GradientTexture1D_pwvxo")
+[node name="AnimationReference" type="Node2D" parent="."]
+position = Vector2(960, 540)
+scale = Vector2(1.1, 1.1)
 
-[node name="PositionReference" type="Node2D" parent="."]
-position = Vector2(1647, 893)
-
-[node name="RigidBody2D" type="CharacterBody2D" parent="PositionReference"]
+[node name="RigidBody2D" type="CharacterBody2D" parent="AnimationReference"]
 motion_mode = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PositionReference/RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimationReference/RigidBody2D"]
 shape = SubResource("RectangleShape2D_bdo4i")
 
-[node name="PNGVtuber" type="Sprite2D" parent="PositionReference/RigidBody2D"]
+[node name="PNGVtuber" type="Sprite2D" parent="AnimationReference/RigidBody2D"]
 unique_name_in_owner = true
-position = Vector2(-719, -99)
 texture = ExtResource("9_otcrw")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -142,10 +197,8 @@ tween_on_load = true
 inactive_update_mode = 0
 
 [node name="FileHandler" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("2_8lpk4")
-
-[node name="SaveTimer" type="Timer" parent="FileHandler"]
-wait_time = 600.0
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -167,7 +220,6 @@ title = "Snowtrack v0.1 - PNG mode"
 initial_position = 2
 size = Vector2i(1230, 800)
 visible = false
-transient = true
 always_on_top = true
 
 [node name="Menus" type="VBoxContainer" parent="UI/SettingsWindow"]
@@ -288,6 +340,7 @@ text = "Blink
 "
 
 [node name="BlinkCheck" type="CheckBox" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkContainer/Header"]
+visible = false
 layout_mode = 2
 button_pressed = true
 
@@ -333,6 +386,7 @@ layout_mode = 2
 text = "Mouth open"
 
 [node name="MouthOpenCheck" type="CheckBox" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/MouthOpenContainer/Header"]
+visible = false
 layout_mode = 2
 button_pressed = true
 
@@ -378,6 +432,7 @@ layout_mode = 2
 text = "Blink + Mouth open"
 
 [node name="BlinkMouthOpenCheck" type="CheckBox" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkMouthOpenContainer/Header"]
+visible = false
 layout_mode = 2
 button_pressed = true
 
@@ -414,16 +469,21 @@ layout_mode = 2
 
 [node name="Button_Save" type="Button" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer"]
 layout_mode = 2
-text = "Save all images"
+text = "Save
+images
+and
+settings"
 
 [node name="VSeparator" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer"]
 layout_mode = 2
 
-[node name="ImageOptions" type="GridContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer"]
+[node name="ImageOptions" type="VBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer"]
 layout_mode = 2
-columns = 4
 
-[node name="BlinkDelay" type="HSlider" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+[node name="BlinkDelayContainer" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+layout_mode = 2
+
+[node name="BlinkDelay" type="HSlider" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkDelayContainer"]
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -432,7 +492,7 @@ value = 1.0
 tick_count = 20
 ticks_on_borders = true
 
-[node name="BlinkDelayAmount" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+[node name="BlinkDelayAmount" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkDelayContainer"]
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -441,30 +501,135 @@ text = "1
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="VSeparator5" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+[node name="VSeparator5" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkDelayContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(10, 30)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="BLINKDELAY" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+[node name="BLINKDELAY" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkDelayContainer"]
 layout_mode = 2
-text = "BlinkDelay"
+text = "Blink delay"
 
-[node name="OptionButton" type="OptionButton" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+[node name="BlinkLengthContainer" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
 layout_mode = 2
 
-[node name="MANUALEXPRESSION" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+[node name="BlinkLength" type="HSlider" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkLengthContainer"]
+custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
-text = "Manual
-expression
-change"
+size_flags_horizontal = 4
+max_value = 2.0
+step = 0.1
+value = 1.0
+tick_count = 21
+ticks_on_borders = true
+
+[node name="BlinkLengthAmount" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkLengthContainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "1
+"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VSeparator6" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkLengthContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(10, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="BLINKLength" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkLengthContainer"]
+layout_mode = 2
+text = "Blink length"
+
+[node name="ImageScaleContainer" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+layout_mode = 2
+
+[node name="ImageScale" type="HSlider" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/ImageScaleContainer"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 5.0
+step = 0.1
+value = 1.0
+
+[node name="ImageScaleAmount" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/ImageScaleContainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "1
+"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VSeparator7" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/ImageScaleContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(10, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="IMAGESCALE" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/ImageScaleContainer"]
+layout_mode = 2
+text = "Image scale"
+
+[node name="AnimationSpeedContainer" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+layout_mode = 2
+
+[node name="AnimationSpeed" type="HSlider" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationSpeedContainer"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 5.0
+step = 0.1
+value = 1.0
+
+[node name="AnimationSpeedAmount" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationSpeedContainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "1
+"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VSeparator7" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationSpeedContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(10, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ANIMATIONSPEED" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationSpeedContainer"]
+layout_mode = 2
+text = "Animation speed"
+
+[node name="AnimationChangeContainer" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationChangeContainer"]
+custom_minimum_size = Vector2(179.215, 0)
+layout_mode = 2
+
+[node name="VSeparator8" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationChangeContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(10, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ANIMATION" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationChangeContainer"]
+layout_mode = 2
+text = "Animation"
 
 [node name="HSeparator" type="HSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer"]
 layout_mode = 2
 
 [node name="PlusButton" type="Button" parent="UI/SettingsWindow/Menus/Images/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "+"
 
@@ -672,17 +837,11 @@ bus = &"Microphone"
 libraries = {
 "": SubResource("AnimationLibrary_qd0xo")
 }
-
-[node name="AnimationTree" type="AnimationTree" parent="AnimationPlayer"]
-root_node = NodePath("../..")
-tree_root = SubResource("AnimationNodeStateMachine_lmgxx")
-anim_player = NodePath("..")
-parameters/Default/BlendSpace1D/blend_position = 0
+playback_default_blend_time = 1.0
 
 [node name="BlinkTimer" type="Timer" parent="."]
+one_shot = true
 
-[connection signal="state_changed" from="." to="." method="_on_state_changed"]
-[connection signal="timeout" from="FileHandler/SaveTimer" to="FileHandler" method="_on_save_timer_timeout"]
 [connection signal="pressed" from="UI/MenuButton" to="UI" method="_on_menu_button_pressed"]
 [connection signal="close_requested" from="UI/SettingsWindow" to="UI" method="_on_settings_window_close_requested"]
 [connection signal="pressed" from="UI/SettingsWindow/Menus/Buttons/Button_Generic" to="UI" method="_on_button_generic_pressed"]
@@ -694,7 +853,11 @@ parameters/Default/BlendSpace1D/blend_position = 0
 [connection signal="pressed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/MouthOpenContainer/Images/TextureRect/Button" to="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer" method="_on_button_pressed" binds= ["MouthOpen"]]
 [connection signal="pressed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkMouthOpenContainer/Images/TextureRect/Button" to="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer" method="_on_button_pressed" binds= ["BlinkMouthOpen"]]
 [connection signal="pressed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/Button_Save" to="UI" method="_on_button_save_pressed"]
-[connection signal="value_changed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkDelay" to="." method="_on_blink_delay_value_changed"]
+[connection signal="value_changed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkDelayContainer/BlinkDelay" to="." method="_on_blink_delay_value_changed"]
+[connection signal="value_changed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkLengthContainer/BlinkLength" to="." method="_on_blink_length_value_changed"]
+[connection signal="value_changed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/ImageScaleContainer/ImageScale" to="." method="_on_image_scale_value_changed"]
+[connection signal="value_changed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationSpeedContainer/AnimationSpeed" to="." method="_on_animation_speed_value_changed"]
+[connection signal="item_selected" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationChangeContainer/OptionButton" to="." method="_on_option_animation_selected"]
 [connection signal="pressed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/PlusButton" to="UI" method="_on_plus_button_pressed"]
 [connection signal="value_changed" from="UI/SettingsWindow/Menus/PNGtuber/AudioSlider/GateSlider" to="." method="_on_gate_slider_value_changed"]
 [connection signal="value_changed" from="UI/SettingsWindow/Menus/PNGtuber/AudioSlider/SoundOffset" to="." method="_on_sound_offset_value_changed"]

@@ -17,6 +17,12 @@ var Container_count : int
 func _ready():
 	for i in range(0, Container_count):
 		add_container("PHname%d" % i)
+	
+	var index = 0
+	for i in $"../AnimationPlayer".get_animation_list() :
+		#if i != "RESET" :
+		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationChangeContainer/OptionButton.add_item(i, index)
+		index += 1
 
 #region - show/hide stuff
 func _on_menu_button_pressed():
@@ -86,11 +92,51 @@ func _on_button_save_pressed():
 		if data == null :
 			return
 		expression_data[data["Name"]] = data
+		
+		SaveData.save_expressions_to_file(data)
 	
-	$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/OptionButton.clear()
-	for i in expression_data :
-		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/OptionButton.add_item(expression_data[i]["Name"])
+	
+	# TODO : implement manual expression change
+	#$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/ExpressionChangeContainer/OptionButton.clear()
+	#for i in expression_data :
+		#$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/ExpressionChangeContainer/OptionButton.add_item(expression_data[i]["Name"])
 	
 	print(expression_data)
 	$"..".update_expression(expression_data)
-	$"../FileHandler".save_imagelist(expression_data)
+	
+
+func load_save_data(data):
+	if data.has("Default") and data["Default"] :
+		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/DefaultContainer/Images/TextureRect.texture = data["Default"]
+	if data.has("BlinkEnabled") and data["BlinkEnabled"] :
+		#$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkContainer/Header/BlinkCheck.button_pressed = data["BlinkEnabled"]
+		pass ## Not implemented
+	if data.has("Blink") and data["Blink"] :
+		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkContainer/Images/TextureRect.texture = data["Blink"]
+	if data.has("MouthOpenEnabled") and data["MouthOpenEnabled"] :
+		#$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/MouthOpenContainer/Header/MouthOpenCheck.button_pressed = data["MouthOpenEnabled"]
+		pass ## Not implemented
+	if data.has("MouthOpen") and data["MouthOpen"] :
+		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/MouthOpenContainer/Images/TextureRect.texture = data["MouthOpen"]
+	if data.has("BlinkMouthOpenEnabled") and data["BlinkMouthOpenEnabled"] :
+		#$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkMouthOpenContainer/Header/BlinkMouthOpenCheck.button_pressed = data["BlinkMouthOpenEnabled"]
+		pass ## Not implemented
+	if data.has("BlinkMouthOpen") and data["BlinkMouthOpen"] :
+		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkMouthOpenContainer/Images/TextureRect.texture = data["BlinkMouthOpen"]
+	if data.has("BlinkDelay") and data["BlinkDelay"] :
+		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkDelayContainer/BlinkDelay.value = data["BlinkDelay"]
+	if data.has("BlinkLength") and data["BlinkLength"] :
+		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkLengthContainer/BlinkLength.value = data["BlinkLength"]
+	if data.has("ImageScale") and data["ImageScale"] :
+		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/ImageScaleContainer/ImageScale.value = data["ImageScale"]
+	if data.has("AnimationSpeed") and data["AnimationSpeed"] :
+		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationSpeedContainer/AnimationSpeed.value = data["AnimationSpeed"]
+	if data.has("SelectedAnimation") and data["SelectedAnimation"] :
+		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationChangeContainer/OptionButton.select(int(data["SelectedAnimation"]))
+	
+	if data.has("MicThreshold") and data["MicThreshold"] :
+		$SettingsWindow/Menus/PNGtuber/AudioSlider/GateSlider.value = data["MicThreshold"]
+	if data.has("MicOffset") and data["MicOffset"] :
+		$SettingsWindow/Menus/PNGtuber/AudioSlider/SoundOffset.value = data["MicOffset"]
+	
+	_on_button_save_pressed() # Reloads the data so the sprite is properly displayed and updated. Also saves the data again, which isn't ideal.

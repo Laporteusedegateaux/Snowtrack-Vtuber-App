@@ -5,15 +5,20 @@ var offset := 0
 var multiplier := 1
 
 var time_to_blink : float
+var blink_length : float
 var time_between_blinks : int
 
-var current_state : State
+var speaking : bool
+var blinking : bool
+
+#var current_state : State
 
 var blinkmouthopen_enabled : bool
 
-enum State {DEFAULT, BLINK, MOUTHOPEN, BLINKMOUTHOPEN} 
+#enum State {DEFAULT, BLINK, MOUTHOPEN, BLINKMOUTHOPEN} 
 
-signal state_changed 
+#signal state_changed 
+var selected_animation
 
 var current_expression
 var expressions_bank = {}
@@ -28,6 +33,8 @@ func _ready():
 	time_to_blink = 1
 	
 	$BlinkTimer.start(time_to_blink)
+	
+	selected_animation = "RESET"
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,10 +45,13 @@ func _physics_process(delta):
 		update_ui(vol)
 	
 	if vol > floor :
-		state_changed.emit(State.MOUTHOPEN)
+		speaking = true
+		#state_changed.emit(State.MOUTHOPEN)
 	else :
-		state_changed.emit(State.DEFAULT)
+		speaking = false
+		#state_changed.emit(State.DEFAULT)
 	
+	update_sprite()
 
 
 func update_ui(vol):
@@ -74,28 +84,24 @@ func update_expression(data):
 		##$AnimatedSprite2D.sprite_frames.clear(data[i]["Name"])
 		#$AnimatedSprite2D.sprite_frames = frames
 
-func _on_state_changed(state):
+#func _on_state_changed(state):
+func update_sprite():
 	#print("State has changed. New state : ", state)
 	if expressions_bank.size() < 1 :
 		return
-	match state :
-		State.DEFAULT:
-			%PNGVtuber.texture = expressions_bank[current_expression]["Default"]
-		State.BLINK:
-			if current_state == State.MOUTHOPEN :
-				_on_state_changed(State.BLINKMOUTHOPEN)
-				return
-			%PNGVtuber.texture = expressions_bank[current_expression]["Blink"]
-		State.MOUTHOPEN:
-			if current_state == State.BLINK :
-				_on_state_changed(State.BLINKMOUTHOPEN)
-				return
-			%PNGVtuber.texture = expressions_bank[current_expression]["MouthOpen"]
-		State.BLINKMOUTHOPEN:
-			if expressions_bank[current_expression]["BlinkMouthOpenEnabled"] :
-				%PNGVtuber.texture = expressions_bank[current_expression]["BlinkMouthOpen"]
-	
-	current_state = state
+	if speaking and blinking and expressions_bank[current_expression]["BlinkMouthOpenEnabled"] :
+		%PNGVtuber.texture = expressions_bank[current_expression]["BlinkMouthOpen"]
+		$AnimationPlayer.play(selected_animation)
+	elif speaking and !blinking :
+		%PNGVtuber.texture = expressions_bank[current_expression]["MouthOpen"]
+		$AnimationPlayer.play(selected_animation)
+	elif blinking and !speaking :
+		%PNGVtuber.texture = expressions_bank[current_expression]["Blink"]
+		$AnimationPlayer.play("RESET")
+	else :
+		%PNGVtuber.texture = expressions_bank[current_expression]["Default"]
+		$AnimationPlayer.play("RESET")
+
 
 func get_microphone_volume():
 	return AudioServer.get_bus_peak_volume_left_db(AudioServer.get_bus_index("Microphone"), 0)
@@ -116,11 +122,13 @@ func show_warning_low(toggle):
 func _on_gate_slider_value_changed(value):
 	$UI/SettingsWindow/Menus/PNGtuber/AudioSlider/GateAmount.text = str(value, " dB")
 	floor = value
+	SaveData.save_data["MicThreshold"] = value
 
 
 func _on_sound_offset_value_changed(value):
 	offset = value
 	$UI/SettingsWindow/Menus/PNGtuber/AudioSlider/OffsetAmount.text = str(value, " dB")
+	SaveData.save_data["MicOffset"] = value
 
 
 func _on_sound_multiplier_value_changed(value):
@@ -129,9 +137,43 @@ func _on_sound_multiplier_value_changed(value):
 
 
 func _on_blink_timer_timeout():
-	state_changed.emit(State.BLINK)
+	if blinking == true : # Timer for blinking ended, so we go back to open eyes
+		$BlinkTimer.stop()
+		$BlinkTimer.start(time_to_blink)
+		#print("finished blinking")
+		blinking = false
+	else : # We should blink as the timer just ended
+		#print("started blinking") 
+		$BlinkTimer.stop()
+		$BlinkTimer.start(blink_length)
+		blinking = true
+	#blinking != blinking
 
 
 func _on_blink_delay_value_changed(value):
 	time_to_blink = value
-	$BlinkTimer.start(time_to_blink)
+	$UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkDelayContainer/BlinkDelayAmount.text = str(value)
+	SaveData.save_data["BlinkDelay"] = value
+
+
+func _on_blink_length_value_changed(value):
+	blink_length = value
+	$UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkLengthContainer/BlinkLengthAmount.text = str(value)
+	SaveData.save_data["BlinkLength"] = value
+
+
+func _on_image_scale_value_changed(value):
+	%PNGVtuber.scale = Vector2(value, value)
+	$UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/ImageScaleContainer/ImageScaleAmount.text = str(value)
+	SaveData.save_data["ImageScale"] = value
+
+
+func _on_animation_speed_value_changed(value):
+	$AnimationPlayer.speed_scale = value
+	SaveData.save_data["AnimationSpeed"] = value
+
+
+func _on_option_animation_selected(index):
+	var anims = $AnimationPlayer.get_animation_list()
+	selected_animation = anims[index]
+	SaveData.save_data["SelectedAnimation"] = index

@@ -22,6 +22,10 @@ config/icon="res://icon.svg"
 
 driver/enable_input=true
 
+[autoload]
+
+SaveData="*res://Common/Scripts/save_data.gd"
+
 [display]
 
 window/size/viewport_width=1920
