@@ -39,6 +39,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	if Input.is_action_just_pressed("ui_cancel"):
+		$UI._on_menu_button_pressed()
 	var vol = (get_microphone_volume() + offset)# * multiplier
 	
 	if $UI/SettingsWindow.visible == true :
