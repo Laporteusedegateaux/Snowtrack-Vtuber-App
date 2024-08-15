@@ -20,6 +20,8 @@ func rollback_settings():
 func validate_settings():
 	previous_resolution = TargetWindow.get_size()
 	previous_windowmode = TargetWindow.get_mode()
+	SaveData.settings_data["resolution"] = previous_resolution
+	SaveData.settings_data["window_mode"] = previous_windowmode
 
 #func set_ui_size(new_size : Vector2):
 	#var ui_list = $FullMenu.get_children()
@@ -75,3 +77,32 @@ func _on_option_windowed_selected(index):
 	TargetWindow.set_mode(new_windowmode)
 	$ConfirmationDialog.show()
 	$ConfirmationDialog/ConfirmationTimer.start(15)
+
+
+func _on_option_max_fps_selected(index):
+	var fps = int($OptionMaxFPS.get_item_text(index))
+	Engine.max_fps = fps
+	SaveData.settings_data["frame_rate"] = fps
+
+
+func _on_option_max_physics_selected(index):
+	var rate = int($OptionMaxPhysics.get_item_text(index))
+	Engine.max_physics_steps_per_frame = rate
+	SaveData.settings_data["physics_rate"] = rate
+
+func _on_check_box_vsync_toggled(toggled_on):
+	if toggled_on :
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+		SaveData.settings_data["vsync"] = true
+	else :
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+		SaveData.settings_data["vsync"] = false
+
+
+#func _on_save_settings_pressed():
+	#SaveData.save_settings_to_file()
+
+
+func _on_check_box_lock_size_toggled(toggled_on):
+	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_RESIZE_DISABLED, toggled_on)
+	SaveData.settings_data["lock_window_size"] = toggled_on

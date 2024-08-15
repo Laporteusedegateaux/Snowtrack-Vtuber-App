@@ -82,13 +82,13 @@ func _on_file_get_dialog_file_selected(path):
 func _on_button_pressed(expression):
 	var file_picker = FileDialog.new()
 	print(expression)
-	file_picker.ACCESS_FILESYSTEM
+	file_picker.set_access(FileDialog.ACCESS_FILESYSTEM)
 	file_picker.add_filter("*.png")
 	file_picker.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	file_picker.set_flag(Window.FLAG_ALWAYS_ON_TOP, true)
 	file_picker.set_exclusive(true)
 	file_picker.set_initial_position(Window.WINDOW_INITIAL_POSITION_CENTER_MAIN_WINDOW_SCREEN)
-	file_picker.size = Vector2(500, 500)	
+	file_picker.size = Vector2(500, 500)
 	file_picker.show()
 	get_tree().root.add_child(file_picker)
 	file_picker.file_selected.connect(_on_file_get_dialog_file_selected.bind())

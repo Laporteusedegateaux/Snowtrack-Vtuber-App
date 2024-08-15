@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SnowTrack-OpenSource"
-config/version="0.1"
+config/version="1.0.2"
 run/main_scene="res://PNGTuber/PNGTuber.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=60
@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 [audio]
 
+buses/default_bus_layout="res://Common/Settings/default_bus_layout.tres"
 driver/enable_input=true
 
 [autoload]
@@ -32,6 +33,8 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/transparent=true
 window/subwindows/embed_subwindows=false
+window/stretch/aspect="keep_width"
+window/vsync/vsync_mode=0
 
 [dotnet]
 

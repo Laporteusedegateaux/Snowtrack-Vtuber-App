@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 var floor := 0
 var offset := 0
@@ -34,6 +34,8 @@ func _ready():
 	
 	$BlinkTimer.start(time_to_blink)
 	
+	$AudioStreamPlayer.play()
+	
 	selected_animation = "RESET"
 
 
@@ -57,7 +59,7 @@ func _physics_process(delta):
 
 
 func update_ui(vol):
-	$UI/SettingsWindow/Menus/PNGtuber/AudioSlider/AudioVisualizer.value = vol
+	$UI/SettingsWindow/Menus/Microphone/AudioSlider/AudioVisualizer.value = vol
 	
 	if vol > 0:
 		show_warning_high(true)
@@ -106,7 +108,10 @@ func update_sprite():
 
 
 func get_microphone_volume():
-	return AudioServer.get_bus_peak_volume_left_db(AudioServer.get_bus_index("Microphone"), 0)
+	var left_db = AudioServer.get_bus_peak_volume_left_db(AudioServer.get_bus_index("Microphone"), 0)
+	var right_db = AudioServer.get_bus_peak_volume_right_db(AudioServer.get_bus_index("Microphone"), 0)
+	var average_db = (left_db + right_db)/2
+	return average_db
 
 
 func free_node(path):
@@ -114,28 +119,28 @@ func free_node(path):
 
 
 func show_warning_high(toggle):
-	$UI/SettingsWindow/Menus/PNGtuber/AudioSlider/AudioVisualizer/WarningHigh.visible = toggle
+	$UI/SettingsWindow/Menus/Microphone/AudioSlider/AudioVisualizer/WarningHigh.visible = toggle
 
 
 func show_warning_low(toggle):
-	$UI/SettingsWindow/Menus/PNGtuber/AudioSlider/AudioVisualizer/WarningLow.visible = toggle
+	$UI/SettingsWindow/Menus/Microphone/AudioSlider/AudioVisualizer/WarningLow.visible = toggle
 
 
 func _on_gate_slider_value_changed(value):
-	$UI/SettingsWindow/Menus/PNGtuber/AudioSlider/GateAmount.text = str(value, " dB")
+	$UI/SettingsWindow/Menus/Microphone/AudioSlider/GateAmount.text = str(value, " dB")
 	floor = value
 	SaveData.save_data["MicThreshold"] = value
 
 
 func _on_sound_offset_value_changed(value):
 	offset = value
-	$UI/SettingsWindow/Menus/PNGtuber/AudioSlider/OffsetAmount.text = str(value, " dB")
+	$UI/SettingsWindow/Menus/Microphone/AudioSlider/OffsetAmount.text = str(value, " dB")
 	SaveData.save_data["MicOffset"] = value
 
 
 func _on_sound_multiplier_value_changed(value):
 	multiplier = value
-	$UI/SettingsWindow/Menus/PNGtuber/AudioSlider/SoundMultiplierAmount.text = str(value)
+	$UI/SettingsWindow/Menus/Microphone/AudioSlider/SoundMultiplierAmount.text = str(value)
 
 
 func _on_blink_timer_timeout():

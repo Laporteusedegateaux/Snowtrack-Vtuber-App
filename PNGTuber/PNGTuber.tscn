@@ -72,22 +72,6 @@ tracks/0/keys = {
 "values": [Vector2(960, 540), Vector2(960, 500)]
 }
 
-[sub_resource type="Animation" id="Animation_bk3bd"]
-length = 0.9
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimationReference:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3, 0.5, 0.7, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(930, 540), Vector2(930, 540), Vector2(960, 500), Vector2(990, 540), Vector2(960, 500), Vector2(960, 540)]
-}
-
 [sub_resource type="Animation" id="Animation_xhyue"]
 resource_name = "Default"
 length = 0.1
@@ -145,6 +129,22 @@ tracks/1/keys = {
 "values": [Vector2(1.1, 1.1)]
 }
 
+[sub_resource type="Animation" id="Animation_bk3bd"]
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationReference:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.5, 0.7, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(930, 540), Vector2(930, 540), Vector2(960, 500), Vector2(990, 540), Vector2(960, 500), Vector2(960, 540)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qd0xo"]
 _data = {
 "Bounce": SubResource("Animation_ofdg1"),
@@ -153,7 +153,7 @@ _data = {
 "SideToSide": SubResource("Animation_bk3bd")
 }
 
-[node name="PNGTuber" type="Node2D"]
+[node name="PNGTuber" type="Node"]
 script = ExtResource("1_t227f")
 
 [node name="AnimationReference" type="Node2D" parent="."]
@@ -200,26 +200,24 @@ inactive_update_mode = 0
 unique_name_in_owner = true
 script = ExtResource("2_8lpk4")
 
-[node name="UI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 124.0
-offset_bottom = 52.0
+[node name="UI" type="Node" parent="."]
 script = ExtResource("3_bjrfv")
 Expression_Container = ExtResource("4_pvxr6")
 
-[node name="MenuButton" type="Button" parent="UI"]
-layout_mode = 1
+[node name="Canvas" type="CanvasLayer" parent="UI"]
+
+[node name="MenuButton" type="Button" parent="UI/Canvas"]
 offset_right = 95.0
 offset_bottom = 31.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 text = "Menu"
 
 [node name="SettingsWindow" type="Window" parent="UI"]
 gui_embed_subwindows = true
-title = "Snowtrack v0.1 - PNG mode"
+title = "Snowtrack PNG - Options"
 initial_position = 2
 size = Vector2i(1230, 800)
-visible = false
 always_on_top = true
 
 [node name="Menus" type="VBoxContainer" parent="UI/SettingsWindow"]
@@ -246,6 +244,7 @@ layout_mode = 2
 text = "Microphone"
 
 [node name="Button_Twitch" type="Button" parent="UI/SettingsWindow/Menus/Buttons"]
+visible = false
 layout_mode = 2
 text = "Twitch"
 
@@ -633,13 +632,13 @@ visible = false
 layout_mode = 2
 text = "+"
 
-[node name="PNGtuber" type="HBoxContainer" parent="UI/SettingsWindow/Menus"]
+[node name="Microphone" type="HBoxContainer" parent="UI/SettingsWindow/Menus"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="AudioSlider" type="GridContainer" parent="UI/SettingsWindow/Menus/PNGtuber"]
+[node name="AudioSlider" type="GridContainer" parent="UI/SettingsWindow/Menus/Microphone"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -647,7 +646,7 @@ theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 4
 
-[node name="AudioVisualizer" type="TextureProgressBar" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+[node name="AudioVisualizer" type="TextureProgressBar" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 custom_minimum_size = Vector2(300, 10)
 layout_mode = 2
 min_value = -100.0
@@ -656,7 +655,7 @@ value = -60.0
 texture_under = SubResource("NoiseTexture2D_eg51t")
 texture_progress = SubResource("NoiseTexture2D_bbash")
 
-[node name="WarningHigh" type="Panel" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider/AudioVisualizer"]
+[node name="WarningHigh" type="Panel" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider/AudioVisualizer"]
 visible = false
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 0
@@ -664,7 +663,7 @@ offset_left = 295.0
 offset_right = 325.0
 offset_bottom = 30.0
 
-[node name="WarningTexture" type="TextureRect" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider/AudioVisualizer/WarningHigh"]
+[node name="WarningTexture" type="TextureRect" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider/AudioVisualizer/WarningHigh"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 1
 anchors_preset = 15
@@ -677,14 +676,14 @@ pivot_offset = Vector2(15, 15)
 texture = ExtResource("10_g7yfg")
 expand_mode = 1
 
-[node name="WarningLow" type="Panel" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider/AudioVisualizer"]
+[node name="WarningLow" type="Panel" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider/AudioVisualizer"]
 visible = false
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 0
 offset_right = 30.0
 offset_bottom = 30.0
 
-[node name="WarningTexture" type="TextureRect" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider/AudioVisualizer/WarningLow"]
+[node name="WarningTexture" type="TextureRect" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider/AudioVisualizer/WarningLow"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 1
 anchors_preset = 15
@@ -697,7 +696,7 @@ pivot_offset = Vector2(15, 15)
 texture = ExtResource("10_g7yfg")
 expand_mode = 1
 
-[node name="MicNoiseAmount" type="Label" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+[node name="MicNoiseAmount" type="Label" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -705,18 +704,18 @@ text = "0dB"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="VSeparator" type="VSeparator" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+[node name="VSeparator" type="VSeparator" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 clip_contents = true
 custom_minimum_size = Vector2(10, 30)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="MICROPHONEINPUT" type="Label" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+[node name="MICROPHONEINPUT" type="Label" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 layout_mode = 2
 text = "Microphone input"
 
-[node name="GateSlider" type="HSlider" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+[node name="GateSlider" type="HSlider" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 clip_contents = true
 custom_minimum_size = Vector2(325, 30)
 layout_mode = 2
@@ -726,26 +725,26 @@ value = -50.0
 rounded = true
 tick_count = 3
 
-[node name="GateAmount" type="Label" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+[node name="GateAmount" type="Label" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "0dB"
+text = "-50dB"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="VSeparator2" type="VSeparator" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+[node name="VSeparator2" type="VSeparator" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 clip_contents = true
 custom_minimum_size = Vector2(10, 30)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="FLOOR" type="Label" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+[node name="FLOOR" type="Label" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 layout_mode = 2
 text = "Activation treshold"
 
-[node name="SoundOffset" type="HSlider" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+[node name="SoundOffset" type="HSlider" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -753,7 +752,7 @@ min_value = -50.0
 max_value = 50.0
 rounded = true
 
-[node name="OffsetAmount" type="Label" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+[node name="OffsetAmount" type="Label" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -761,38 +760,37 @@ text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="VSeparator3" type="VSeparator" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+[node name="VSeparator3" type="VSeparator" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 clip_contents = true
 custom_minimum_size = Vector2(10, 30)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="OFFSET" type="Label" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+[node name="OFFSET" type="Label" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 layout_mode = 2
 text = "Sound offset"
 
-[node name="SoundMultiplier" type="HSlider" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+[node name="MonoStereo" type="OptionButton" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 visible = false
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 size_flags_horizontal = 4
-min_value = 1.0
-max_value = 10.0
-value = 1.0
-tick_count = 10
-ticks_on_borders = true
+item_count = 3
+popup/item_0/text = "Stereo"
+popup/item_0/id = 0
+popup/item_1/text = "Mono (L)"
+popup/item_1/id = 1
+popup/item_2/text = "Mono (R)"
+popup/item_2/id = 2
 
-[node name="SoundMultiplierAmount" type="Label" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+[node name="Label" type="Control" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 visible = false
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "1"
-horizontal_alignment = 2
-vertical_alignment = 1
 
-[node name="VSeparator4" type="VSeparator" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+[node name="VSeparator4" type="VSeparator" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 visible = false
 clip_contents = true
 custom_minimum_size = Vector2(10, 30)
@@ -800,10 +798,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="SOUNDMULTIPLIER" type="Label" parent="UI/SettingsWindow/Menus/PNGtuber/AudioSlider"]
+[node name="STEREOMODE" type="Label" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 visible = false
 layout_mode = 2
-text = "Loudness multiplier"
+text = "Stereo mode"
 
 [node name="Twitch" type="HBoxContainer" parent="UI/SettingsWindow/Menus"]
 visible = false
@@ -811,21 +809,41 @@ layout_mode = 2
 
 [node name="Tmi" parent="UI/SettingsWindow/Menus/Twitch" instance=ExtResource("14_mxgcc")]
 unique_name_in_owner = true
+process_mode = 4
+
+[node name="TwitchAPI" parent="UI/SettingsWindow/Menus/Twitch/Tmi" index="0"]
+process_mode = 4
+
+[node name="7tvAPI" parent="UI/SettingsWindow/Menus/Twitch/Tmi" index="1"]
+process_mode = 4
+
+[node name="BttvAPI" parent="UI/SettingsWindow/Menus/Twitch/Tmi" index="2"]
+process_mode = 4
+
+[node name="PronounsAPI" parent="UI/SettingsWindow/Menus/Twitch/Tmi" index="3"]
+process_mode = 4
+
+[node name="OAuth" parent="UI/SettingsWindow/Menus/Twitch/Tmi" index="4"]
+process_mode = 4
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/SettingsWindow/Menus/Twitch"]
+process_mode = 4
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="ControlPanel" parent="UI/SettingsWindow/Menus/Twitch/PanelContainer" node_paths=PackedStringArray("tmi") instance=ExtResource("15_s58hh")]
+process_mode = 4
 custom_minimum_size = Vector2(0, 450)
 layout_mode = 2
 tmi = NodePath("../../Tmi")
 
 [node name="PanelContainer2" type="PanelContainer" parent="UI/SettingsWindow/Menus/Twitch"]
+process_mode = 4
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Chat" parent="UI/SettingsWindow/Menus/Twitch/PanelContainer2" instance=ExtResource("16_s4dsa")]
+process_mode = 4
 layout_mode = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
@@ -842,7 +860,7 @@ playback_default_blend_time = 1.0
 [node name="BlinkTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="pressed" from="UI/MenuButton" to="UI" method="_on_menu_button_pressed"]
+[connection signal="pressed" from="UI/Canvas/MenuButton" to="UI" method="_on_menu_button_pressed"]
 [connection signal="close_requested" from="UI/SettingsWindow" to="UI" method="_on_settings_window_close_requested"]
 [connection signal="pressed" from="UI/SettingsWindow/Menus/Buttons/Button_Generic" to="UI" method="_on_button_generic_pressed"]
 [connection signal="pressed" from="UI/SettingsWindow/Menus/Buttons/Button_Images" to="UI" method="_on_button_images_pressed"]
@@ -859,9 +877,8 @@ one_shot = true
 [connection signal="value_changed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationSpeedContainer/AnimationSpeed" to="." method="_on_animation_speed_value_changed"]
 [connection signal="item_selected" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationChangeContainer/OptionButton" to="." method="_on_option_animation_selected"]
 [connection signal="pressed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/PlusButton" to="UI" method="_on_plus_button_pressed"]
-[connection signal="value_changed" from="UI/SettingsWindow/Menus/PNGtuber/AudioSlider/GateSlider" to="." method="_on_gate_slider_value_changed"]
-[connection signal="value_changed" from="UI/SettingsWindow/Menus/PNGtuber/AudioSlider/SoundOffset" to="." method="_on_sound_offset_value_changed"]
-[connection signal="value_changed" from="UI/SettingsWindow/Menus/PNGtuber/AudioSlider/SoundMultiplier" to="." method="_on_sound_multiplier_value_changed"]
+[connection signal="value_changed" from="UI/SettingsWindow/Menus/Microphone/AudioSlider/GateSlider" to="." method="_on_gate_slider_value_changed"]
+[connection signal="value_changed" from="UI/SettingsWindow/Menus/Microphone/AudioSlider/SoundOffset" to="." method="_on_sound_offset_value_changed"]
 [connection signal="command" from="UI/SettingsWindow/Menus/Twitch/Tmi" to="UI/SettingsWindow/Menus/Twitch/PanelContainer2/Chat" method="_on_twitch_command"]
 [connection signal="connection_status_changed" from="UI/SettingsWindow/Menus/Twitch/Tmi" to="UI/SettingsWindow/Menus/Twitch/PanelContainer/ControlPanel" method="_on_twitch_connection_status_changed"]
 [connection signal="timeout" from="BlinkTimer" to="." method="_on_blink_timer_timeout"]

@@ -1,6 +1,7 @@
 extends Node
 
 var save_data = {}
+var settings_data = {}
 
 var FileHandler : Node
 
@@ -39,7 +40,7 @@ func save_expressions_to_file(expressions):
 	if expressions.has("BlinkMouthOpen") and expressions["BlinkMouthOpen"] :
 		FileHandler.save_image_to_folder(expressions["BlinkMouthOpen"], "user://%s/BlinkMouthOpen.png" % expressions["Name"])
 	
-	FileHandler.save_data(save_data, "user://saved_settings.json")
+	FileHandler.save_data(save_data, "user://expressions_settings.json")
 
-func save_data_to_file():
-	save_data[""]
+#func save_settings_to_file():
+	#FileHandler.save_data(settings_data, "user://options_settings.json")

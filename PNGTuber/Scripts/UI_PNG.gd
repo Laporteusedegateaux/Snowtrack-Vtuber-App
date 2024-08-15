@@ -1,4 +1,4 @@
-extends Control
+extends Node
 
 @export var Expression_Container : PackedScene
 @export var Expression_amount_limit : int
@@ -34,7 +34,7 @@ func _on_button_images_pressed():
 
 func _on_button_PNGtuber_pressed():
 	hide_all()
-	$SettingsWindow/Menus/PNGtuber.show()
+	$SettingsWindow/Menus/Microphone.show()
 
 func _on_button_twitch_pressed():
 	hide_all()
@@ -47,7 +47,7 @@ func _on_button_generic_pressed():
 
 func hide_all():
 	$SettingsWindow/Menus/Images.hide()
-	$SettingsWindow/Menus/PNGtuber.hide()
+	$SettingsWindow/Menus/Microphone.hide()
 	$SettingsWindow/Menus/Generic.hide()
 	$SettingsWindow/Menus/Twitch.hide()
 #endregion
@@ -80,7 +80,7 @@ func add_container(expression_title):
 
 func _on_settings_window_close_requested():
 	$SettingsWindow.hide()
-	$MenuButton.button_pressed = false
+	$Canvas/MenuButton.button_pressed = false
 
 
 func _on_button_save_pressed():
@@ -135,8 +135,8 @@ func load_save_data(data):
 		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationChangeContainer/OptionButton.select(int(data["SelectedAnimation"]))
 	
 	if data.has("MicThreshold") and data["MicThreshold"] :
-		$SettingsWindow/Menus/PNGtuber/AudioSlider/GateSlider.value = data["MicThreshold"]
+		$SettingsWindow/Menus/Microphone/AudioSlider/GateSlider.value = data["MicThreshold"]
 	if data.has("MicOffset") and data["MicOffset"] :
-		$SettingsWindow/Menus/PNGtuber/AudioSlider/SoundOffset.value = data["MicOffset"]
+		$SettingsWindow/Menus/Microphone/AudioSlider/SoundOffset.value = data["MicOffset"]
 	
 	_on_button_save_pressed() # Reloads the data so the sprite is properly displayed and updated. Also saves the data again, which isn't ideal.
