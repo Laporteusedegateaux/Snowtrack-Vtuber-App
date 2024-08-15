@@ -52,8 +52,8 @@ func save_data(data, path):
 func read_data():
 	var json = JSON.new()
 	var data
-	if FileAccess.file_exists("user://saved_settings.json"):
-		var file_string = FileAccess.get_file_as_string("user://saved_settings.json")
+	if FileAccess.file_exists("user://expressions_settings.json"):
+		var file_string = FileAccess.get_file_as_string("user://expressions_settings.json")
 		data = json.parse_string(file_string)
 	else:
 		return
