@@ -55,6 +55,8 @@ func read_data():
 	if FileAccess.file_exists("user://saved_settings.json"):
 		var file_string = FileAccess.get_file_as_string("user://saved_settings.json")
 		data = json.parse_string(file_string)
+	else:
+		return
 	
 	var dir = DirAccess.open("user://")
 	if dir.dir_exists("user://Default"):

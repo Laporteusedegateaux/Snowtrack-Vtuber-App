@@ -34,7 +34,7 @@ func _ready():
 	
 	$BlinkTimer.start(time_to_blink)
 	
-	$AudioStreamPlayer.play()
+	#$AudioStreamPlayer.play()
 	
 	selected_animation = "RESET"
 
