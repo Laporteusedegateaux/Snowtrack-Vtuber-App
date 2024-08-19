@@ -199,6 +199,8 @@ inactive_update_mode = 0
 [node name="FileHandler" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_8lpk4")
+visible = false
+transient = true
 
 [node name="UI" type="Node" parent="."]
 script = ExtResource("3_bjrfv")
@@ -230,6 +232,7 @@ grow_vertical = 2
 
 [node name="Buttons" type="HBoxContainer" parent="UI/SettingsWindow/Menus"]
 layout_mode = 2
+size_flags_horizontal = 0
 
 [node name="Button_Generic" type="Button" parent="UI/SettingsWindow/Menus/Buttons"]
 layout_mode = 2
@@ -510,6 +513,34 @@ size_flags_vertical = 4
 [node name="BLINKDELAY" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkDelayContainer"]
 layout_mode = 2
 text = "Blink delay"
+
+[node name="BlinkRandomContainer" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+layout_mode = 2
+
+[node name="BlinkRandom" type="HSlider" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkRandomContainer"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 20.0
+value = 1.0
+tick_count = 20
+ticks_on_borders = true
+
+[node name="BlinkRandonAmount" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkRandomContainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VSeparator9" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkRandomContainer"]
+custom_minimum_size = Vector2(10, 30)
+layout_mode = 2
+
+[node name="BLINKRANDOM" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkRandomContainer"]
+layout_mode = 2
+text = "Blink Random"
 
 [node name="BlinkLengthContainer" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
 layout_mode = 2
@@ -872,6 +903,7 @@ one_shot = true
 [connection signal="pressed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkMouthOpenContainer/Images/TextureRect/Button" to="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer" method="_on_button_pressed" binds= ["BlinkMouthOpen"]]
 [connection signal="pressed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/Button_Save" to="UI" method="_on_button_save_pressed"]
 [connection signal="value_changed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkDelayContainer/BlinkDelay" to="." method="_on_blink_delay_value_changed"]
+[connection signal="value_changed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkRandomContainer/BlinkRandom" to="." method="_on_blink_random_value_changed"]
 [connection signal="value_changed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkLengthContainer/BlinkLength" to="." method="_on_blink_length_value_changed"]
 [connection signal="value_changed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/ImageScaleContainer/ImageScale" to="." method="_on_image_scale_value_changed"]
 [connection signal="value_changed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationSpeedContainer/AnimationSpeed" to="." method="_on_animation_speed_value_changed"]

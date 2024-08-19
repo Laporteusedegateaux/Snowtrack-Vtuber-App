@@ -86,6 +86,7 @@ func _on_button_pressed(expression):
 	file_picker.add_filter("*.png")
 	file_picker.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	file_picker.set_flag(Window.FLAG_ALWAYS_ON_TOP, true)
+	file_picker.set_transient(true)
 	file_picker.set_exclusive(true)
 	file_picker.set_initial_position(Window.WINDOW_INITIAL_POSITION_CENTER_MAIN_WINDOW_SCREEN)
 	file_picker.size = Vector2(500, 500)
