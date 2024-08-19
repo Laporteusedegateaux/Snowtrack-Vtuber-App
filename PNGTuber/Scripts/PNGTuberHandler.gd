@@ -5,6 +5,7 @@ var offset := 0
 var multiplier := 1
 
 var time_to_blink : float
+var blink_random : float
 var blink_length : float
 var time_between_blinks : int
 
@@ -146,7 +147,7 @@ func _on_sound_multiplier_value_changed(value):
 func _on_blink_timer_timeout():
 	if blinking == true : # Timer for blinking ended, so we go back to open eyes
 		$BlinkTimer.stop()
-		$BlinkTimer.start(time_to_blink)
+		$BlinkTimer.start(time_to_blink + randf_range(0, blink_random))
 		#print("finished blinking")
 		blinking = false
 	else : # We should blink as the timer just ended
@@ -162,6 +163,10 @@ func _on_blink_delay_value_changed(value):
 	$UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkDelayContainer/BlinkDelayAmount.text = str(value)
 	SaveData.save_data["BlinkDelay"] = value
 
+func _on_blink_random_value_changed(value):
+	blink_random = value
+	$UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkRandomContainer/BlinkRandonAmount.text = str(value)
+	SaveData.save_data["BlinkRandom"] = value
 
 func _on_blink_length_value_changed(value):
 	blink_length = value
@@ -184,3 +189,6 @@ func _on_option_animation_selected(index):
 	var anims = $AnimationPlayer.get_animation_list()
 	selected_animation = anims[index]
 	SaveData.save_data["SelectedAnimation"] = index
+
+
+

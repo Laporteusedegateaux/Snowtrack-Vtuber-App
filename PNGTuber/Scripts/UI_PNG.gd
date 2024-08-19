@@ -125,6 +125,8 @@ func load_save_data(data):
 		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageContainers/ExpressionDefaultContainer/BlinkMouthOpenContainer/Images/TextureRect.texture = data["BlinkMouthOpen"]
 	if data.has("BlinkDelay") and data["BlinkDelay"] :
 		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkDelayContainer/BlinkDelay.value = data["BlinkDelay"]
+	if data.has("BlinkRandom") and data["BlinkRandom"] :
+		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkRandomContainer/BlinkRandom.value = data["BlinkRandom"]
 	if data.has("BlinkLength") and data["BlinkLength"] :
 		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/BlinkLengthContainer/BlinkLength.value = data["BlinkLength"]
 	if data.has("ImageScale") and data["ImageScale"] :
