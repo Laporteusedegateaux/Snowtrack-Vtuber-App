@@ -106,3 +106,25 @@ func _on_check_box_vsync_toggled(toggled_on):
 func _on_check_box_lock_size_toggled(toggled_on):
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_RESIZE_DISABLED, toggled_on)
 	SaveData.settings_data["lock_window_size"] = toggled_on
+
+
+func _on_option_anti_aliasing_item_selected(index):
+	var main_window = get_tree().root
+	match index :
+		0 : # None
+			main_window.set_screen_space_aa(0)
+			main_window.set_msaa_2d(0)
+			ProjectSettings.set_setting("rendering/anti_aliasing/quality/msaa_2d", 0)
+			ProjectSettings.set_setting("rendering/anti_aliasing/quality/screen_space_aa", 0)
+		1 : # FXAA
+			ProjectSettings.set_setting("rendering/anti_aliasing/quality/msaa_2d", 0)
+			ProjectSettings.set_setting("rendering/anti_aliasing/quality/screen_space_aa", 1)
+		2 : # MSAA x2
+			ProjectSettings.set_setting("rendering/anti_aliasing/quality/msaa_2d", 1)
+			ProjectSettings.set_setting("rendering/anti_aliasing/quality/screen_space_aa", 0)
+		3 : # MSAA x4
+			ProjectSettings.set_setting("rendering/anti_aliasing/quality/msaa_2d", 2)
+			ProjectSettings.set_setting("rendering/anti_aliasing/quality/screen_space_aa", 0)
+		4 : # MSAA x8
+			ProjectSettings.set_setting("rendering/anti_aliasing/quality/msaa_2d", 3)
+			ProjectSettings.set_setting("rendering/anti_aliasing/quality/screen_space_aa", 0)

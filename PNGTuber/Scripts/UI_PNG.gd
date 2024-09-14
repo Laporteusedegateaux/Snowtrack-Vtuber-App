@@ -23,6 +23,13 @@ func _ready():
 		#if i != "RESET" :
 		$SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationChangeContainer/OptionButton.add_item(i, index)
 		index += 1
+	
+	initialize_microphones()
+
+
+func initialize_microphones():
+	for device in AudioServer.get_input_device_list() :
+		%MicrophoneSelect.add_item(device)
 
 #region - show/hide stuff
 func _on_menu_button_pressed():
@@ -142,3 +149,9 @@ func load_save_data(data):
 		$SettingsWindow/Menus/Microphone/AudioSlider/SoundOffset.value = data["MicOffset"]
 	
 	_on_button_save_pressed() # Reloads the data so the sprite is properly displayed and updated. Also saves the data again, which isn't ideal.
+
+
+func _on_microphone_select_item_selected(index):
+	var selected_microphone = %MicrophoneSelect.get_item_text(index)
+	AudioServer.set_input_device(selected_microphone) 
+

@@ -175,6 +175,7 @@ func _on_blink_length_value_changed(value):
 
 
 func _on_image_scale_value_changed(value):
+	value = snapped(value, 0.01)
 	%PNGVtuber.scale = Vector2(value, value)
 	$UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/ImageScaleContainer/ImageScaleAmount.text = str(value)
 	SaveData.save_data["ImageScale"] = value

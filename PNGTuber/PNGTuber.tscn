@@ -168,6 +168,7 @@ shape = SubResource("RectangleShape2D_bdo4i")
 
 [node name="PNGVtuber" type="Sprite2D" parent="AnimationReference/RigidBody2D"]
 unique_name_in_owner = true
+texture_filter = 6
 texture = ExtResource("9_otcrw")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -199,8 +200,6 @@ inactive_update_mode = 0
 [node name="FileHandler" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_8lpk4")
-visible = false
-transient = true
 
 [node name="UI" type="Node" parent="."]
 script = ExtResource("3_bjrfv")
@@ -583,15 +582,14 @@ custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 size_flags_horizontal = 4
 max_value = 5.0
-step = 0.1
+step = 0.05
 value = 1.0
 
 [node name="ImageScaleAmount" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/ImageScaleContainer"]
-custom_minimum_size = Vector2(15, 0)
+custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "1
-"
+text = "1"
 horizontal_alignment = 2
 vertical_alignment = 1
 
@@ -626,7 +624,7 @@ text = "1
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="VSeparator7" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationSpeedContainer"]
+[node name="VSeparator" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationSpeedContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(10, 30)
 layout_mode = 2
@@ -644,7 +642,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(179.215, 0)
 layout_mode = 2
 
-[node name="VSeparator8" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationChangeContainer"]
+[node name="VSeparator" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationChangeContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(10, 30)
 layout_mode = 2
@@ -654,6 +652,68 @@ size_flags_vertical = 4
 [node name="ANIMATION" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationChangeContainer"]
 layout_mode = 2
 text = "Animation"
+
+[node name="OffsetXcontainer" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+visible = false
+layout_mode = 2
+
+[node name="XOffset" type="HSlider" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/OffsetXcontainer"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 5.0
+step = 0.1
+
+[node name="XOffsetAmount" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/OffsetXcontainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "1
+"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/OffsetXcontainer"]
+clip_contents = true
+custom_minimum_size = Vector2(10, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="OFFSETX" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/OffsetXcontainer"]
+layout_mode = 2
+text = "Offset x"
+
+[node name="OffsetYcontainer" type="HBoxContainer" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions"]
+visible = false
+layout_mode = 2
+
+[node name="YOffset" type="HSlider" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/OffsetYcontainer"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 5.0
+step = 0.1
+
+[node name="YOffsetAmount" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/OffsetYcontainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "0
+"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/OffsetYcontainer"]
+clip_contents = true
+custom_minimum_size = Vector2(10, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="OFFSETY" type="Label" parent="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/OffsetYcontainer"]
+layout_mode = 2
+text = "Offset y"
 
 [node name="HSeparator" type="HSeparator" parent="UI/SettingsWindow/Menus/Images/VBoxContainer"]
 layout_mode = 2
@@ -680,6 +740,7 @@ columns = 4
 [node name="AudioVisualizer" type="TextureProgressBar" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 custom_minimum_size = Vector2(300, 10)
 layout_mode = 2
+size_flags_horizontal = 3
 min_value = -100.0
 max_value = 0.0
 value = -60.0
@@ -802,27 +863,23 @@ size_flags_vertical = 4
 layout_mode = 2
 text = "Sound offset"
 
-[node name="MonoStereo" type="OptionButton" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
-visible = false
+[node name="MicrophoneSelect" type="OptionButton" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
+unique_name_in_owner = true
+clip_contents = true
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 size_flags_horizontal = 4
-item_count = 3
-popup/item_0/text = "Stereo"
-popup/item_0/id = 0
-popup/item_1/text = "Mono (L)"
-popup/item_1/id = 1
-popup/item_2/text = "Mono (R)"
-popup/item_2/id = 2
+size_flags_vertical = 4
+clip_text = true
+fit_to_longest_item = false
 
-[node name="Label" type="Control" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
-visible = false
+[node name="Reload" type="Button" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+text = "Rescan"
 
 [node name="VSeparator4" type="VSeparator" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
-visible = false
 clip_contents = true
 custom_minimum_size = Vector2(10, 30)
 layout_mode = 2
@@ -830,9 +887,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="STEREOMODE" type="Label" parent="UI/SettingsWindow/Menus/Microphone/AudioSlider"]
-visible = false
 layout_mode = 2
-text = "Stereo mode"
+text = "Microphone"
 
 [node name="Twitch" type="HBoxContainer" parent="UI/SettingsWindow/Menus"]
 visible = false
@@ -908,9 +964,12 @@ one_shot = true
 [connection signal="value_changed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/ImageScaleContainer/ImageScale" to="." method="_on_image_scale_value_changed"]
 [connection signal="value_changed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationSpeedContainer/AnimationSpeed" to="." method="_on_animation_speed_value_changed"]
 [connection signal="item_selected" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/AnimationChangeContainer/OptionButton" to="." method="_on_option_animation_selected"]
+[connection signal="value_changed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/OffsetXcontainer/XOffset" to="." method="_on_animation_speed_value_changed"]
+[connection signal="value_changed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/ScrollContainer/ImageFullContainer/ImageOptions/OffsetYcontainer/YOffset" to="." method="_on_animation_speed_value_changed"]
 [connection signal="pressed" from="UI/SettingsWindow/Menus/Images/VBoxContainer/PlusButton" to="UI" method="_on_plus_button_pressed"]
 [connection signal="value_changed" from="UI/SettingsWindow/Menus/Microphone/AudioSlider/GateSlider" to="." method="_on_gate_slider_value_changed"]
 [connection signal="value_changed" from="UI/SettingsWindow/Menus/Microphone/AudioSlider/SoundOffset" to="." method="_on_sound_offset_value_changed"]
+[connection signal="item_selected" from="UI/SettingsWindow/Menus/Microphone/AudioSlider/MicrophoneSelect" to="UI" method="_on_microphone_select_item_selected"]
 [connection signal="command" from="UI/SettingsWindow/Menus/Twitch/Tmi" to="UI/SettingsWindow/Menus/Twitch/PanelContainer2/Chat" method="_on_twitch_command"]
 [connection signal="connection_status_changed" from="UI/SettingsWindow/Menus/Twitch/Tmi" to="UI/SettingsWindow/Menus/Twitch/PanelContainer/ControlPanel" method="_on_twitch_connection_status_changed"]
 [connection signal="timeout" from="BlinkTimer" to="." method="_on_blink_timer_timeout"]

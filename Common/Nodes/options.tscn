@@ -93,6 +93,27 @@ text = "Bloquer la taille de la fenêtre"
 [node name="CheckBoxLockSize" type="CheckBox" parent="."]
 layout_mode = 2
 
+[node name="ANTIALIASING" type="Label" parent="."]
+visible = false
+layout_mode = 2
+text = "Antialiasing (adoucissement)"
+
+[node name="OptionAntiAliasing" type="OptionButton" parent="."]
+visible = false
+layout_mode = 2
+item_count = 5
+selected = 0
+popup/item_0/text = "Aucun"
+popup/item_0/id = 0
+popup/item_1/text = "FXAA"
+popup/item_1/id = 1
+popup/item_2/text = "MSAA x2"
+popup/item_2/id = 2
+popup/item_3/text = "MSAA x4"
+popup/item_3/id = 4
+popup/item_4/text = "MSAA x8"
+popup/item_4/id = 4
+
 [node name="LabelVolAll" type="Label" parent="."]
 visible = false
 layout_mode = 2
@@ -163,6 +184,7 @@ text = "Enregistrer"
 [connection signal="item_selected" from="OptionWindowed" to="." method="_on_option_windowed_selected"]
 [connection signal="toggled" from="CheckBoxVsync" to="." method="_on_check_box_vsync_toggled"]
 [connection signal="toggled" from="CheckBoxLockSize" to="." method="_on_check_box_lock_size_toggled"]
+[connection signal="item_selected" from="OptionAntiAliasing" to="." method="_on_option_anti_aliasing_item_selected"]
 [connection signal="canceled" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
 [connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
 [connection signal="timeout" from="ConfirmationDialog/ConfirmationTimer" to="." method="_on_confirmation_timer_timeout"]
